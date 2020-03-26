@@ -24,8 +24,25 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var resultLabel: UILabel!
     
-    @IBAction func findDay() {
+    @IBAction func findWeekDay() {
+        let calendar = Calendar.current
         
+        var dateComponents = DateComponents()
+        guard let day = dateTF.text, let month = monthTF.text, let year = yearTF.text else {return }
+        dateComponents.day = Int(day)
+        dateComponents.month = Int(month)
+        dateComponents.year = Int(year)
+        
+        guard let date = calendar.date(from: dateComponents) else {return resultLabel.text = "Ты еблан"}
+         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "Ru_ru")
+        dateFormatter.dateFormat = "EEEE"
+        
+        let weekDay = dateFormatter.string(from: date)
+        let bb = weekDay.capitalized
+        
+        resultLabel.text = bb
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
